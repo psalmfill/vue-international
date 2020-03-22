@@ -1,19 +1,35 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <img alt="Vue logo" src="./assets/logo.png" />
+    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div>
+      <button v-for="entry in languages" :key="entry.title" @click="changeLocale(entry.language)">
+        <flag :iso="entry.flag" v-bind:squared="false" />
+        {{entry.title}}
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from "./components/HelloWorld.vue";
+import i18n from '@/plugins/i18n';
 
 export default {
-  name: 'App',
+  name: "App",
+  data() {
+    return {
+      languages: [
+        { flag: "us", language: "en", title: "English" },
+        { flag: "es", language: "es", title: "Español" }
+      ]
+    };
+  },
   components: {
     HelloWorld
-  }
-}
+  },
+  methods: {    changeLocale(locale) {        i18n.locale = locale;    }}
+};
 </script>
 
 <style>
@@ -25,4 +41,6 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+button {    padding: 15px;    border: 1px solid green;    font-size: 18px;    margin: 15px;}
+
 </style>
